@@ -1,0 +1,32 @@
+pipeline {
+  agent any
+    
+  tools {nodejs "node"}
+    
+  stages {
+        
+    stage('Git') {
+      steps {
+        git ‘https://github.com/mbogi/pytm-nodejs-dockerization.git’
+      }
+    }
+     
+    stage('Build') {
+      steps {
+        bat 'npm install  --production '
+      }
+    }  
+        
+    stage('Test') {
+      steps {
+        bat 'npm run'
+      }
+    }
+	stage('Deploy') {
+      steps {
+        bat ' startup.bat'
+      }
+    }
+ 
+  }
+}
